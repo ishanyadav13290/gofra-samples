@@ -1,3 +1,4 @@
+import { Box } from "@mui/material"
 
 export default function Footer(){
     let style={
@@ -10,7 +11,7 @@ export default function Footer(){
         fontSize:"20px",
         padding:"10px 0"
     }
-    return <div style={style}>
+    return <Box sx={style}>
         Footer
-    </div>
+    </Box>
 }
