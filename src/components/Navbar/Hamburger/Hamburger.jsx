@@ -66,7 +66,7 @@ export default function Hamburger() {
   return (
     <Box display={["block","block","none"]}>
         <React.Fragment>
-          <Button onClick={toggleDrawer("left", true)} ><MenuIcon sx={{color:"white"}} /></Button>
+          <Button onClick={toggleDrawer("left", true)} ><MenuIcon sx={{color:"black"}} /></Button>
           <Drawer
             anchor={"left"}
             open={state["left"]}
