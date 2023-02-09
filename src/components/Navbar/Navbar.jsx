@@ -21,10 +21,9 @@ export default function Navbar() {
         fontSize={["13px", "15px", "20px"]}
         zIndex={"10"}
         position={["static", "static", "static", "static"]}
-        
       >
-        <Box width={"90%"}>
-        <Box display={"flex"}>
+        <Box width={["100%","90%"]}>
+        <Box display={"flex"} >
         <Hamburger />
         <NavLink to={"/"}>
           <Typography fontWeight={700} variant="h4">
