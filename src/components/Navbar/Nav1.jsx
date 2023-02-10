@@ -6,6 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Contexts";
+import BasicMenu from "./Hover_Menu/Menu";
 
 let styles2 = {
   display: "block",
@@ -48,7 +49,7 @@ export default function Nav1() {
             <PersonIcon />
           </NavLink>
           <Box display={["none", "none", "flex", "flex"]} fontSize={"15px"}>
-          {isAuth?<Typography fontSize={"15px"} fontWeight={700}>My Account</Typography> :
+          {isAuth?<BasicMenu /> :
            <><NavLink style={styles2} to={"/login"}>
               Login
             </NavLink>

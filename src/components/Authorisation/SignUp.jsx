@@ -6,13 +6,15 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function SignUp() {
-  let {isAuth,setAuth} = useContext(AuthContext)
+  let {isAuth,setAuth, cart, setUserName} = useContext(AuthContext)
   let Name = useRef(null);
   let Address1 = useRef(null);
   let Address2 = useRef(null);
   let Email = useRef(null);
   let Pan = useRef(null);
   let Gst = useRef(null);
+  let Pass = useRef("");
+  let ConPass = useRef("");
 
   async function SignUp() {
     let name = Name.current.childNodes[0].value;
@@ -21,18 +23,30 @@ export default function SignUp() {
     let email = Email.current.childNodes[0].value;
     let pan = Pan.current.childNodes[0].value;
     let gst = Gst.current.childNodes[0].value;
+    let password=Pass.current.childNodes[0].value;
+    let confPass = ConPass.current.childNodes[0].value;
+
+    let letterNumber = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
+    let specialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if((confPass.length<=6 || password<=6)) return alert("Password Cannot be less than 6 Characters!")
+    if(!password.match(letterNumber)) return alert("Password must contain atleast one Number, Upper Case and Lower Case Character")
+    if(!password.match(specialChar)) return alert ("Provide atleast one Special Case Character")
+    if(confPass!= password) return alert("Password Mismatched")
 
     let obj = {
       name,
       address1,
       address2,
       email,
+      password,
       pan,
       gst,
+      cart
     };
+    setUserName(name)
 
-    console.log("data");
-    // await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
+    await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
     Name.current.childNodes[0].value = "";
     Address1.current.childNodes[0].value = "";
     Address2.current.childNodes[0].value = "";
@@ -43,7 +57,7 @@ export default function SignUp() {
   }
   if(isAuth) return <Navigate to="/" />
   return (
-    <Box m={"2% 0"}>
+    <Box m={"2% 0"} height={"100vh"}>
       <Box
         boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
         width={"40%"}
@@ -105,6 +119,26 @@ export default function SignUp() {
           <label>Email: </label>
           <Box width={"70%"}>
             <Input ref={Email} sx={{ width: "100%" }} placeholder="Email ID" />
+          </Box>
+        </Box>
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
+          <label>Password: </label>
+          <Box width={"70%"}>
+            <Input type="password" ref={Pass} sx={{ width: "100%" }} placeholder="Password" />
+          </Box>
+        </Box>
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
+          <label>Confirm Password: </label>
+          <Box width={"70%"}>
+            <Input type="password" ref={ConPass} sx={{ width: "100%" }} placeholder="Confirm Your Password" />
           </Box>
         </Box>
         <Box
