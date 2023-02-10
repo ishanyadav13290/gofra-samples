@@ -1,8 +1,12 @@
 import { Button, Input } from "@mui/material";
 import { Box } from "@mui/system";
-import { useRef } from "react";
+import axios from "axios";
+import { useContext, useRef } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../Context/Contexts";
 
 export default function SignUp() {
+  let {isAuth,setAuth} = useContext(AuthContext)
   let Name = useRef(null);
   let Address1 = useRef(null);
   let Address2 = useRef(null);
@@ -10,9 +14,34 @@ export default function SignUp() {
   let Pan = useRef(null);
   let Gst = useRef(null);
 
-  function SignUp() {
-    console.log(Name.current.childNodes[0].value)
+  async function SignUp() {
+    let name = Name.current.childNodes[0].value;
+    let address1 = Address1.current.childNodes[0].value;
+    let address2 = Address2.current.childNodes[0].value;
+    let email = Email.current.childNodes[0].value;
+    let pan = Pan.current.childNodes[0].value;
+    let gst = Gst.current.childNodes[0].value;
+
+    let obj = {
+      name,
+      address1,
+      address2,
+      email,
+      pan,
+      gst,
+    };
+
+    console.log("data");
+    // await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
+    Name.current.childNodes[0].value = "";
+    Address1.current.childNodes[0].value = "";
+    Address2.current.childNodes[0].value = "";
+    Email.current.childNodes[0].value = "";
+    Pan.current.childNodes[0].value = "";
+    Gst.current.childNodes[0].value = "";
+    setAuth(true)
   }
+  if(isAuth) return <Navigate to="/" />
   return (
     <Box m={"2% 0"}>
       <Box
@@ -45,8 +74,11 @@ export default function SignUp() {
             <label width={"50%"}>Address 1: </label>
           </Box>
           <Box width={"70%"}>
-            <Input ref={Address1
-            } sx={{ width: "100%" }} placeholder="Address Line 1" />
+            <Input
+              ref={Address1}
+              sx={{ width: "100%" }}
+              placeholder="Address Line 1"
+            />
           </Box>
         </Box>
         <Box
@@ -58,7 +90,11 @@ export default function SignUp() {
             <label width={"50%"}>Address 2: </label>
           </Box>
           <Box width={"70%"}>
-            <Input ref={Address2} sx={{ width: "100%" }} placeholder="Address Line 2" />
+            <Input
+              ref={Address2}
+              sx={{ width: "100%" }}
+              placeholder="Address Line 2"
+            />
           </Box>
         </Box>
         <Box
@@ -92,7 +128,9 @@ export default function SignUp() {
           </Box>
         </Box>
         <br />
-        <Button variant="contained" onClick={SignUp}>SignUp</Button>
+        <Button variant="contained" onClick={SignUp}>
+          SignUp
+        </Button>
       </Box>
     </Box>
   );

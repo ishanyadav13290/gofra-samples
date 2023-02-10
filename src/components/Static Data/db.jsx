@@ -1,0 +1,5 @@
+
+ let arr=Array(8).fill("Bath Fittings");
+ export let cardNames= [...arr,...Array(8).fill("Switches & Wires")]
+ let arr3=Array(8).fill("https://www.hippostores.com/_next/image?url=https%3A%2F%2Fd2k503pumj0lc5.cloudfront.net%2Fdalmia%2Fdisk%3Fobject_token%3DeyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJneGFma3ExZWMwN2J1c3dsNWI1cDQ0cDJmazRsIiwiZmlsZW5hbWUiOiJCYXRoIEZpdHRpbmdzLndlYnAiLCJjb250ZW50X3R5cGUiOiJpbWFnZS93ZWJwIiwiYmxvYl9rZXkiOiJneGFma3ExZWMwN2J1c3dsNWI1cDQ0cDJmazRsIiwiY29udmVydF93ZWJwIjp0cnVlfQ.QIc6zgqUmpye4lJSTX5jzWWxe7XjsciH7BSHxe-B_yY&w=1920&q=75");
+export let cardImgs = [...arr3,...Array(8).fill("https://www.hippostores.com/_next/image?url=https%3A%2F%2Fd2k503pumj0lc5.cloudfront.net%2Fdalmia%2Fdisk%3Fobject_token%3DeyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2MTN2ZXBidnhqemNzYTJkcDc3bTF1M2g1MXp6IiwiZmlsZW5hbWUiOiJTd2l0Y2hlcyAmIFdpcmVzLndlYnAiLCJjb250ZW50X3R5cGUiOiJpbWFnZS93ZWJwIiwiYmxvYl9rZXkiOiJ2MTN2ZXBidnhqemNzYTJkcDc3bTF1M2g1MXp6IiwiY29udmVydF93ZWJwIjp0cnVlfQ.qNYyEvh26T6LYemMwvCn_wvh9sTaLF_e4ocME10VOKw&w=1920&q=75")]

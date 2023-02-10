@@ -3,7 +3,7 @@ import { Box } from "@mui/material"
 export default function Footer(){
     let style={
         backgroundColor:"black",
-        position:"absolute",
+        position:"relative",
         bottom:0,
         width:"100%",
         color:"white",

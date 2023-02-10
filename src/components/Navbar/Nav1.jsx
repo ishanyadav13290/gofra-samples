@@ -1,17 +1,21 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { styles } from "./Navbar";
 import SearchField from "./SearchField";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
+import { useContext } from "react";
+import { AuthContext } from "../Context/Contexts";
 
 let styles2 = {
   display: "block",
   textDecoration: "none",
   color: "black",
+  fontSize:"15px"
 };
 
 export default function Nav1() {
+  let {isAuth} = useContext(AuthContext)
   return (
     <Box
       sx={styles}
@@ -44,13 +48,14 @@ export default function Nav1() {
             <PersonIcon />
           </NavLink>
           <Box display={["none", "none", "flex", "flex"]} fontSize={"15px"}>
-            <NavLink style={styles2} to={"/login"}>
+          {isAuth?<Typography fontSize={"15px"} fontWeight={700}>My Account</Typography> :
+           <><NavLink style={styles2} to={"/login"}>
               Login
             </NavLink>
             |
             <NavLink style={styles2} to={"/signup"}>
               Sign Up
-            </NavLink>
+            </NavLink></>}
           </Box>
         </Box>
       </Box>

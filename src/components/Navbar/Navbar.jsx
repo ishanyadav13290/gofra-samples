@@ -26,9 +26,11 @@ export default function Navbar() {
         <Box display={"flex"} >
         <Hamburger />
         <NavLink to={"/"}>
+          <Box display={"flex"} height={"100%"} alignItems={"center"}>
           <Typography fontWeight={700} variant="h4">
             Gofra
           </Typography>
+          </Box>
         </NavLink>
         <Nav1 />
         </Box>
