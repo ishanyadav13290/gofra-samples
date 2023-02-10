@@ -7,7 +7,7 @@ import Cards from "./Categories Card/CategoriesCard";
 
 export default function HomePage(){
     let {isAuth,userName} = useContext(AuthContext)
-    return <Box m={"2% 0"} height={"100vh"}>
+    return <Box m={"2% 0"} height={"100%"}>
     {isAuth?`Welcome ${userName}`:null}
         <Box textAlign={"left"} m={"0 5%"}> <Typography variant="h4" textAlign={"left"}>Shop By Category</Typography></Box>
        

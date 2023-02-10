@@ -33,7 +33,7 @@ export default function Login(){
     <Box m={"2% 0"} height={"100vh"}>
       <Box
         boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-        width={"40%"}
+        width={["80%","40%"]}
         m={"auto"}
         p={"15px"}
         borderRadius={"10px"}
