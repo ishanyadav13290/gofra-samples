@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export default function Footer(){
     let style={
@@ -13,5 +14,21 @@ export default function Footer(){
     }
     return <Box sx={style}>
         Footer
+        <a href="#">
+          <Box
+            position="fixed"
+            bottom={5}
+            right={10}
+            bgcolor="white"
+            zIndex={1}
+            p="10px 15px"
+            borderRadius="50%"
+            border="2px solid black"
+            fontWeight={700}
+            fontSize="xl"
+          >
+            <ArrowUpwardIcon />
+          </Box>
+        </a>
     </Box>
 }

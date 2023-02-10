@@ -23,6 +23,7 @@ export default function Nav1() {
       width={"100%"}
       display={["none", "none", "flex"]}
       m={"0 1%"}
+      id="Nav"
     >
       <Box display={["none", "none", "flex"]} width={"60%"}>
         <SearchField />
