@@ -37,7 +37,7 @@ export default function Carousel(){
         <Button onClick={btnpressnext} sx={{right:"10px", backgroundColor:"rgba(253, 253, 253,0.8)",position:"absolute",top:"50%"}} ><ArrowRight /></Button>
         <Box className={"container"} display={"flex"} sx={{overflowX:"hidden", scrollBehavior:"smooth"}}>
     {images.map((el,i)=>{
-        return <Box key={i} maxHeight={"400px"} minWidth={"100%"} m={"auto"} overflow="hidden">
+        return <Box key={i} maxHeight={"100%"} minWidth={"100%"} m={"auto"} overflow="hidden">
             <img src={el} alt={"img"+i} height={"100%"}  width={"100%"} />
         </Box>
     })}
