@@ -1,12 +1,12 @@
-import { Button, Input } from "@mui/material";
+import { Button, Divider, Input, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function Login(){
-    let {isAuth,setAuth, cart, setUserName, setWalletBalance} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart, setUserName, setWalletBalance} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -16,6 +16,7 @@ export default function Login(){
     (async ()=>{
         let temp=await axios.get("https://sedate-laced-chestnut.glitch.me/users")
         setUsers(temp.data)
+        console.log(temp.data)
     })()
   },[])
     function Login(){
@@ -26,6 +27,7 @@ export default function Login(){
                 setAuth(true)
                 setUserName(element.name)
                 setWalletBalance(element.walletBalance)
+                setCart(element.cart)
             }
         });
     }
@@ -39,6 +41,10 @@ export default function Login(){
         p={"15px"}
         borderRadius={"10px"}
       >
+      <Typography variant="h5" fontWeight={700}>Login to Your Account</Typography>
+      <br />
+      <Divider />
+      <br />
        
         <Box
           display={"flex"}
@@ -47,7 +53,7 @@ export default function Login(){
         >
           <label>Email: </label>
           <Box width={"70%"}>
-            <Input ref={Email} sx={{ width: "100%" }} placeholder="Email ID" />
+            <Input type="email" ref={Email} sx={{ width: "100%" }} placeholder="Email ID" />
           </Box>
         </Box>
         <Box
@@ -65,6 +71,8 @@ export default function Login(){
         <Button variant="contained" onClick={Login}>
           Login
         </Button>
+        <br />
+        <NavLink to="/signup" >Don't have an account? Sign Up!</NavLink>
       </Box>
     </Box>
   );

@@ -1,49 +1,3 @@
-// import * as React from 'react';
-// import Button from '@mui/material/Button';
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
-// import { Person } from '@mui/icons-material';
-// import { Box } from '@mui/system';
-
-// export default function BasicMenu() {
-//   const [anchorEl, setAnchorEl] = React.useState(null);
-//   const open = Boolean(anchorEl);
-//   const handleClick = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-
-//   return (
-//     <div>
-//       <Button
-//         // id="basic-button"
-//         aria-controls={open ? 'basic-menu' : undefined}
-//         aria-haspopup="true"
-//         aria-expanded={open ? 'true' : undefined}
-//         onClick={handleClick}
-//         sx={{padding:"0", color:"black",fontWeight:700,fontSize:"13px"}}
-//       >
-//         My Account
-//       </Button>
-//       <Menu
-//         id="basic-menu"
-//         anchorEl={anchorEl}
-//         open={open}
-//         onClose={handleClose}
-//         MenuListProps={{
-//           'aria-labelledby': 'basic-button',
-//         }}
-//         sx={{width:"400"}}
-//       ><Box display="flex" m={"10px"}><Person /> My Account</Box>
-//         <MenuItem onClick={handleClose}>Profile</MenuItem>
-//         <MenuItem onClick={handleClose}>My account</MenuItem>
-//         <MenuItem onClick={handleClose}>Logout</MenuItem>
-//       </Menu>
-//     </div>
-//   );
-// }
 
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -52,18 +6,16 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { AuthContext } from "../../Context/Contexts";
-import { Wallet } from "@mui/icons-material";
+import { Person, Wallet } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 let exportedMenu;
-export { exportedMenu };
+
 export default function BasictMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -81,17 +33,21 @@ export default function BasictMenu() {
   }
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+      <Box sx={{ display: ["block"], alignItems: "center", textAlign: "center" }}>
+      <Person onClick={handleClick} />
         <Typography
           fontSize={"14px"}
           onClick={handleClick}
+          display={["none","block","block"]}
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           color={"black"}
           sx={{ cursor: "pointer" }}
           fontWeight={700}
+          
         >
+        
           My Account
         </Typography>
       </Box>
@@ -164,3 +120,5 @@ export default function BasictMenu() {
     </React.Fragment>
   );
 }
+
+export { exportedMenu };
