@@ -23,7 +23,7 @@ export default function Navbar() {
         position={["static", "static", "static", "static"]}
       >
         <Box width={["100%","90%"]}>
-        <Box display={"flex"} >
+        <Box display={"flex"} alignItems={"center"} >
         <Hamburger />
         <NavLink to={"/"}>
           <Box display={"flex"} height={"100%"} alignItems={"center"}>

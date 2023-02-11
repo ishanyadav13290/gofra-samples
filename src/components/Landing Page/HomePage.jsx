@@ -9,7 +9,8 @@ import Cards from "./Categories Card/CategoriesCard";
 export default function HomePage(){
     let {isAuth,userName} = useContext(AuthContext)
     return <Box m={"2% 0"} height={"100%"}>
-    {isAuth?`Welcome ${userName}`:null}
+    
+    <Typography variant={"h5"} fontWeight={600}>{isAuth?`Welcome ${userName}`:null}</Typography>
 
     <Carousel />
 

@@ -1,18 +1,22 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Login, Logout, Share, ShoppingBag, ShoppingCart, Wallet } from "@mui/icons-material";
+import { AuthContext } from "../../Context/Contexts";
+import { Navigate, NavLink } from "react-router-dom";
 
 export default function Hamburger() {
+  let { isAuth, setAuth } = React.useContext(AuthContext);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -20,8 +24,15 @@ export default function Hamburger() {
     right: false,
   });
 
+  function LogOut() {
+    setAuth(false);
+  }
+
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
 
@@ -30,25 +41,106 @@ export default function Hamburger() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
+        
+        {isAuth ? (
+          <>
+          <NavLink
+            to="/cart"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ShoppingCart />
+                </ListItemIcon>
+                <ListItemText>Cart</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+          <NavLink
+            to="/previousOrders"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ShoppingBag />
+                </ListItemIcon>
+                <ListItemText>Previous Orders</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+          <NavLink
+            to="/wallet"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Wallet />
+                </ListItemIcon>
+                <ListItemText>Wallet</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+          <ListItem disablePadding onClick={LogOut}>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <Logout />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText>LogOut</ListItemText>
             </ListItemButton>
           </ListItem>
-        ))}
+          </>
+        ) : (
+          <>
+          <NavLink
+            to="/login"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Login />
+                </ListItemIcon>
+                <ListItemText>Log In</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+          <NavLink
+            to="/signup"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Login />
+                </ListItemIcon>
+                <ListItemText>Signup</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+          </>
+        )}
+        <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Share />
+                </ListItemIcon>
+                <ListItemText>Refer</ListItemText>
+              </ListItemButton>
+            </ListItem>
+        {/* ))} */}
       </List>
       <Divider />
-      <List>
+      {/* <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -59,22 +151,24 @@ export default function Hamburger() {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </Box>
   );
 
   return (
-    <Box display={["block","block","none"]}>
-        <React.Fragment>
-          <Button onClick={toggleDrawer("left", true)} ><MenuIcon sx={{color:"black"}} /></Button>
-          <Drawer
-            anchor={"left"}
-            open={state["left"]}
-            onClose={toggleDrawer("left", false)}
-          >
-            {list("left")}
-          </Drawer>
-        </React.Fragment>
+    <Box display={["block", "block", "none"]}>
+      <React.Fragment>
+        <Button onClick={toggleDrawer("left", true)}>
+          <MenuIcon sx={{ color: "black" }} />
+        </Button>
+        <Drawer
+          anchor={"left"}
+          open={state["left"]}
+          onClose={toggleDrawer("left", false)}
+        >
+          {list("left")}
+        </Drawer>
+      </React.Fragment>
     </Box>
   );
 }
