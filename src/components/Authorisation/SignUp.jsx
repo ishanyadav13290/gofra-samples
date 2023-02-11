@@ -1,4 +1,4 @@
-import { Button, Input } from "@mui/material";
+import { Button, Divider, Input, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useContext, useRef } from "react";
@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function SignUp() {
-  let {isAuth,setAuth, cart, setUserName} = useContext(AuthContext)
+  let {isAuth,setAuth, cart, setUserName, walletBalance} = useContext(AuthContext)
   let Name = useRef(null);
   let Address1 = useRef(null);
   let Address2 = useRef(null);
@@ -42,7 +42,8 @@ export default function SignUp() {
       password,
       pan,
       gst,
-      cart
+      cart,
+      walletBalance
     };
     setUserName(name)
 
@@ -65,6 +66,8 @@ export default function SignUp() {
         p={"15px"}
         borderRadius={"10px"}
       >
+      <Typography fontWeight={700} variant={"h5"}>Create a New Account</Typography>
+      <Divider />
         <Box
           display={"flex"}
           alignItems={"center"}

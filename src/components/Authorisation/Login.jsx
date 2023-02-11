@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function Login(){
-    let {isAuth,setAuth, cart, setUserName} = useContext(AuthContext)
+    let {isAuth,setAuth, cart, setUserName, setWalletBalance} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -25,6 +25,7 @@ export default function Login(){
             if(email == element.email && pass == element.password){
                 setAuth(true)
                 setUserName(element.name)
+                setWalletBalance(element.walletBalance)
             }
         });
     }

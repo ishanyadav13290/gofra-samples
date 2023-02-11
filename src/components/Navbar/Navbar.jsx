@@ -15,7 +15,8 @@ export let styles = {
 export let styles2 = { textDecoration: "none" };
 export default function Navbar() {
   return (
-    <Box width={["100%","90%"]} m={"auto"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}>
+    <Box display={"flex"} justifyContent={"center"} mb={["30%","10%"]}>
+      <Box  width={["100%","90%"]} position={"fixed"} top={0} zIndex={"1"}  borderRadius={"0 0 20px 20px"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"} bgcolor={"white"}>
       <Box
         sx={styles}
         fontSize={["13px", "15px", "20px"]}
@@ -47,6 +48,7 @@ export default function Navbar() {
 
         </Box>
       </Box>
+    </Box>
     </Box>
   );
 }

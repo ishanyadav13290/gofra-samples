@@ -16,7 +16,7 @@ import { AuthContext } from "../../Context/Contexts";
 import { Navigate, NavLink } from "react-router-dom";
 
 export default function Hamburger() {
-  let { isAuth, setAuth } = React.useContext(AuthContext);
+  let { isAuth, setAuth, userName } = React.useContext(AuthContext);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -46,8 +46,9 @@ export default function Hamburger() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List m={"0"} disablePadding >
         {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
+        <Box textAlign={"center"} p={"5px"} color={"white"} bgcolor="rgb(0, 125, 252)">{`Welcome ${userName}`}</Box>
         
         {isAuth ? (
           <>
