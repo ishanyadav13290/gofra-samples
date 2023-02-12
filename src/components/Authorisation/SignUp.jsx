@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function SignUp() {
-  let {isAuth,setAuth, cart, setUserName, walletBalance} = useContext(AuthContext)
+  let {isAuth,setAuth, cart, setUserName, walletBalance, setIsSeller} = useContext(AuthContext)
   let Name = useRef(null);
   let Address1 = useRef(null);
   let Address2 = useRef(null);
@@ -15,6 +15,7 @@ export default function SignUp() {
   let Gst = useRef(null);
   let Pass = useRef("");
   let ConPass = useRef("");
+  let isSelling = useRef(false);
 
   async function SignUp() {
     let name = Name.current.childNodes[0].value;
@@ -25,6 +26,9 @@ export default function SignUp() {
     let gst = Gst.current.childNodes[0].value;
     let password=Pass.current.childNodes[0].value;
     let confPass = ConPass.current.childNodes[0].value;
+    let sells = isSelling.current.childNodes[0].checked;
+
+    
 
     let letterNumber = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
     let specialChar = /[!@#$%^&*(),.?":{}|<>]/;
@@ -43,9 +47,11 @@ export default function SignUp() {
       pan,
       gst,
       cart,
-      walletBalance
+      walletBalance,
+      "isSelling":sells
     };
     setUserName(name)
+    sells===true?setIsSeller(true):setIsSeller(false)
 
     await axios.post("https://sedate-laced-chestnut.glitch.me/users",obj)
     Name.current.childNodes[0].value = "";
@@ -165,6 +171,16 @@ export default function SignUp() {
           </Box>
         </Box>
         <br />
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          // justifyContent={"space-between"}
+        >
+          <Box width={"7%"}>
+            <Input ref={isSelling} type={"checkbox"} sx={{ width: "100%" }} placeholder="GST" />
+          </Box>
+          <label>Want to Sell? </label>
+        </Box>
         <Button variant="contained" onClick={SignUp}>
           SignUp
         </Button>

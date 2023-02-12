@@ -6,7 +6,7 @@ import { Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function Login(){
-    let {isAuth,setAuth,setCart, setUserName, setWalletBalance} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart, setUserName, setWalletBalance,isSeller, setIsSeller} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -28,6 +28,7 @@ export default function Login(){
                 setUserName(element.name)
                 setWalletBalance(element.walletBalance)
                 setCart(element.cart)
+                setIsSeller(element.isSelling)
             }
         });
     }

@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Admin from "../Admin/Admin";
 import Login from "../Authorisation/Login";
 import SignUp from "../Authorisation/SignUp";
 import Cart from "../Cart/Cart";
@@ -13,5 +14,6 @@ export default function AllRoutes(){
     <Route path="/cart" element=<h1>Cart</h1> />
     <Route path="/signup" element=<SignUp /> />
     <Route path="/wallet" element=<Wallet /> />
+    <Route path="/admin" element=<Admin /> />
 </Routes>
 }

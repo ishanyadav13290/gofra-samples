@@ -26,10 +26,11 @@ export default function BasictMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  let { setAuth } = React.useContext(AuthContext);
+  let { setAuth,setIsSeller } = React.useContext(AuthContext);
   function LogOut() {
     setAuth(false);
     handleClose();
+    setIsSeller(false)
   }
   return (
     <React.Fragment>

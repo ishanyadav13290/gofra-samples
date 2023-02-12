@@ -7,6 +7,7 @@ export default function ContextProvider({ children }) {
   let [cart, setCart] = useState([]);
   let [userName, setUserName] = useState("");
   let [walletBalance, setWalletBalance] = useState(10000);
+  let [isSeller, setIsSeller]= useState(false)
   let value = {
     isAuth,
     setAuth,
@@ -16,6 +17,8 @@ export default function ContextProvider({ children }) {
     setUserName,
     walletBalance,
     setWalletBalance,
+    isSeller,
+    setIsSeller
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
