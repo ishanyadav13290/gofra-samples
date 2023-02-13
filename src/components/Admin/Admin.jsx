@@ -5,6 +5,7 @@ import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
+import toIndianNumberingSystem from "../Features/RupeeConversion";
 
 export default function Admin() {
   let { isAuth, userName, userID } = useContext(AuthContext);
@@ -200,21 +201,30 @@ export default function Admin() {
               >
                 <Box
                   sx={{ objectFit: "cover" }}
-                  width={"100px"}
+                  width={"80%"}
                   m={["auto", "0 5%"]}
                 >
                   <img
                     src={el.Img}
                     alt="List"
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "80%", maxWidth: "100%" }}
                   />
                 </Box>
-                <Box m={"auto"} minWidth={"80%"} textAlign={"left"}>
-                  <Typography variant="h6">Name: {el.name}</Typography>
-                  <Typography variant="h6">
-                    Dummy Describe: {el.description}{" "}
-                  </Typography>
-                  <Typography variant="h6">Price: {el.price} </Typography>
+                <Box m={"auto"} maxWidth={"80%"} textAlign={"left"}>
+                  <Box display={"flex"}>
+                  <Box minWidth={"100px"}><b>Name:</b></Box> 
+                  <Box>{el.name}</Box>
+                  </Box>
+                  <Box maxHeight={"100px"} sx={{overflowY:"scroll"}}>
+                  <Box display={"flex"}>
+                    <Box minWidth={"100px"}><b>Describe:</b></Box> 
+                    <Box>{el.description}</Box>
+                  </Box>
+                  </Box>
+                  <Box display={"flex"}>
+                  <Box minWidth={"100px"}><b>Price:</b></Box> 
+                  <Box><b><em>{toIndianNumberingSystem(el.price)}</em></b></Box>
+                   </Box>
                 </Box>
               </Box>
             );
