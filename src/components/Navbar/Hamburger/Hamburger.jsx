@@ -14,7 +14,7 @@ import { AuthContext } from "../../Context/Contexts";
 import { NavLink } from "react-router-dom";
 
 export default function Hamburger() {
-  let { isAuth, setAuth, userName, setIsSeller } = React.useContext(AuthContext);
+  let { isAuth, setAuth, userName, setIsSeller, setUserID } = React.useContext(AuthContext);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -25,6 +25,7 @@ export default function Hamburger() {
   function LogOut() {
     setAuth(false);
     setIsSeller(false)
+    setUserID("")
   }
 
   const toggleDrawer = (anchor, open) => (event) => {

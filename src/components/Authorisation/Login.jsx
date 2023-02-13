@@ -6,7 +6,7 @@ import { Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function Login(){
-    let {isAuth,setAuth,setCart, setUserName, setWalletBalance,isSeller, setIsSeller} = useContext(AuthContext)
+    let {isAuth,setAuth,setCart, setUserName,setUserID, setWalletBalance, setIsSeller, setUserEmail, setUserPassword} = useContext(AuthContext)
   let Email = useRef(null);
   let Pass = useRef("");
 
@@ -16,7 +16,6 @@ export default function Login(){
     (async ()=>{
         let temp=await axios.get("https://sedate-laced-chestnut.glitch.me/users")
         setUsers(temp.data)
-        console.log(temp.data)
     })()
   },[])
     function Login(){
@@ -29,6 +28,9 @@ export default function Login(){
                 setWalletBalance(element.walletBalance)
                 setCart(element.cart)
                 setIsSeller(element.isSelling)
+                setUserEmail(element.email)
+                setUserPassword(element.password)
+                setUserID(Number(element.id))
             }
         });
     }

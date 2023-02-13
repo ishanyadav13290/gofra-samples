@@ -2,17 +2,31 @@ import { AttachFile } from "@mui/icons-material";
 import { Button, Input, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function Admin() {
-  let { userName } = useContext(AuthContext);
+  let { isAuth, userName, userID } = useContext(AuthContext);
   let imgInput = useRef(null);
   let prodName = useRef(null);
   let prodDesc = useRef(null);
   let prodPrice = useRef(0);
   let sellerAddress = useRef(null);
   let [Img, setImg] = useState("https://i.stack.imgur.com/mwFzF.png");
+
+  // temporarily storing seller items to show in the panel
+  let [tempSellerItems, setTempSellerITems] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      let temp = await axios.get(
+        `https://sedate-laced-chestnut.glitch.me/users/${userID}`
+      );
+      // console.log(temp.data.sellerItems)
+      setTempSellerITems(temp.data.sellerItems);
+    })();
+  }, [tempSellerItems]);
 
   function imageSelect() {
     imgInput.current.click();
@@ -34,22 +48,34 @@ export default function Admin() {
     let price = Number(prodPrice.current.childNodes[0].value);
 
     let obj = {
+      sellerItems: [
+        ...tempSellerItems,
+        { name, description, address, price, Img },
+      ],
+    };
+
+    await axios.patch(
+      `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
+      obj
+    );
+    axios.post("https://sedate-laced-chestnut.glitch.me/allItems", {
       name,
       description,
       address,
       price,
       Img,
-    };
-
-    await axios.post("https://sedate-laced-chestnut.glitch.me/sellers", obj);
+    });
     prodName.current.childNodes[0].value = "";
     prodDesc.current.value = "";
     sellerAddress.current.childNodes[0].value = "";
     prodPrice.current.childNodes[0].value = "";
     setImg("https://i.stack.imgur.com/mwFzF.png");
+    setTempSellerITems(obj.sellerItems);
   }
-  return (
-    <Box height={"100vh"} mt={["30%", "20%", "10%"]}>
+  return !isAuth ? (
+    <Navigate to="/" />
+  ) : (
+    <Box height={"100%"} mt={["30%", "20%", "10%"]}>
       <Typography variant="h6">{`Let's List up your services ${userName}`}</Typography>
       <Box display={["block", "flex"]} justifyContent={"center"}>
         <Box>
@@ -149,10 +175,52 @@ export default function Admin() {
           </Box>
           <br />
           <Button onClick={ListItem} variant={"contained"}>
-            List
+            Add
           </Button>
         </Box>
       </Box>
+      <br />
+      <br />
+      <br />
+      <Typography variant="h4">Your Additions</Typography>
+      <br />
+      {tempSellerItems.length == 0 ? (
+        <Box minHeight={"200px"}>
+          <Typography variant="h5">No Additions Yet</Typography>
+        </Box>
+      ) : (
+        <Box minHeight={"200px"}>
+          {tempSellerItems.map((el, i) => {
+            return (
+              <Box
+                key={i}
+                display={["block", "flex"]}
+                justifyContent={"space-between"}
+                m={"10px 0 "}
+              >
+                <Box
+                  sx={{ objectFit: "cover" }}
+                  width={"100px"}
+                  m={["auto", "0 5%"]}
+                >
+                  <img
+                    src={el.Img}
+                    alt="List"
+                    style={{ height: "100%", width: "100%" }}
+                  />
+                </Box>
+                <Box m={"auto"} minWidth={"80%"} textAlign={"left"}>
+                  <Typography variant="h6">Name: {el.name}</Typography>
+                  <Typography variant="h6">
+                    Dummy Describe: {el.description}{" "}
+                  </Typography>
+                  <Typography variant="h6">Price: {el.price} </Typography>
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
+      )}
     </Box>
   );
 }

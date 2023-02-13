@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 
 export default function SignUp() {
-  let {isAuth,setAuth, cart, setUserName, walletBalance, setIsSeller} = useContext(AuthContext)
+  let {isAuth,setAuth, cart, setUserName, walletBalance, setIsSeller, sellerItems} = useContext(AuthContext)
   let Name = useRef(null);
   let Address1 = useRef(null);
   let Address2 = useRef(null);
@@ -48,7 +48,8 @@ export default function SignUp() {
       gst,
       cart,
       walletBalance,
-      "isSelling":sells
+      "isSelling":sells,
+      "sellerItems":sells?[]:null
     };
     setUserName(name)
     sells===true?setIsSeller(true):setIsSeller(false)
