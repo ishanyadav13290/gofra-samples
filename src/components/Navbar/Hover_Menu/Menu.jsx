@@ -36,7 +36,7 @@ export default function BasictMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: ["block"], alignItems: "center", textAlign: "center" }}>
-      <Person onClick={handleClick} />
+      <Person onClick={handleClick} sx={{color:"rgb(246, 126, 34)"}} />
         <Typography
           fontSize={"14px"}
           onClick={handleClick}

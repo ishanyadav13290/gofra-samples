@@ -76,7 +76,7 @@ export default function Admin() {
   return !isAuth ? (
     <Navigate to="/" />
   ) : (
-    <Box height={"100%"} mt={["30%", "20%", "10%"]}>
+    <Box minHeight={"100%"} mt={["30%", "20%", "10%"]}>
       <Typography variant="h6">{`Let's List up your services ${userName}`}</Typography>
       <Box display={["block", "flex"]} justifyContent={"center"}>
         <Box>
@@ -175,7 +175,7 @@ export default function Admin() {
             </Box>
           </Box>
           <br />
-          <Button onClick={ListItem} variant={"contained"}>
+          <Button sx={{backgroundColor:"rgb(246, 126, 34)"}} onClick={ListItem} variant={"contained"}>
             Add
           </Button>
         </Box>
@@ -195,13 +195,26 @@ export default function Admin() {
             return (
               <Box
                 key={i}
+                width={["100%","80%"]}
                 display={["block", "flex"]}
                 justifyContent={"space-between"}
-                m={"10px 0 "}
+                m={"1% auto "}
+                padding={"10px 0"}
+                sx={{
+                  "&:hover": {
+                    boxShadow:
+                    "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
+,
+                    borderRadius:"50px"
+                  },
+                }}
               >
                 <Box
                   sx={{ objectFit: "cover" }}
-                  width={"80%"}
+                  width={"30%"}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
                   m={["auto", "0 5%"]}
                 >
                   <img
@@ -210,18 +223,18 @@ export default function Admin() {
                     style={{ height: "80%", maxWidth: "100%" }}
                   />
                 </Box>
-                <Box m={"auto"} maxWidth={"80%"} textAlign={"left"}>
-                  <Box display={"flex"}>
+                <Box m={"auto"} width={["60%","60%","80%"]} height={["100%"]}  textAlign={"left"}>
+                  <Box display={"flex"}  minHeight={["auto","auto","50px"]}>
                   <Box minWidth={"100px"}><b>Name:</b></Box> 
                   <Box>{el.name}</Box>
                   </Box>
-                  <Box maxHeight={"100px"} sx={{overflowY:"scroll"}}>
-                  <Box display={"flex"}>
+                  <Box maxHeight={"100px"} sx={{overflowY:"scroll"}} >
+                  <Box display={"flex"} minHeight={["auto","auto","50px"]}>
                     <Box minWidth={"100px"}><b>Describe:</b></Box> 
-                    <Box>{el.description}</Box>
+                    <Box width={"100%"}>{el.description}</Box>
                   </Box>
                   </Box>
-                  <Box display={"flex"}>
+                  <Box display={"flex"} minHeight={["auto","auto","50px"]}>
                   <Box minWidth={"100px"}><b>Price:</b></Box> 
                   <Box><b><em>{toIndianNumberingSystem(el.price)}</em></b></Box>
                    </Box>

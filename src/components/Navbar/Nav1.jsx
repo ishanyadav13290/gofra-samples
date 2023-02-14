@@ -38,7 +38,7 @@ export default function Nav1() {
       >
         <Box m={"0 10px"} height="100%">
           <NavLink style={styles2} to={"/cart"}>
-            <ShoppingCartIcon fontSize="small" />
+            <ShoppingCartIcon fontSize="small" sx={{color:"rgb(246, 126, 34)"}} />
           </NavLink>
           <Box display={["none", "none", "flex", "flex"]} fontSize={"15px"}>
             <NavLink style={styles2} to={"/cart"}>
@@ -48,7 +48,7 @@ export default function Nav1() {
         </Box>
         <Box >
           {!isAuth?<NavLink style={styles2} to={"/login"}> 
-          <PersonIcon />
+          <PersonIcon sx={{color:"rgb(246, 126, 34)"}} />
            </NavLink>:null}
           <Box display={["block", "none", "block", "block"]} fontSize={"15px"}>
             

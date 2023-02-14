@@ -8,20 +8,46 @@ import {
   Select,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Context/Contexts";
+import toIndianNumberingSystem from "../Features/RupeeConversion";
 
-export default function Cards() {
+export default function Cards({data, index}) {
   const [Qty, setQty] = useState(1);
-
+  let {cart,setCart,userID} = useContext(AuthContext)
   const handleChange = (event) => {
+    let temp=[...cart]
+    temp[index].qty=event.target.value
+    setCart(temp)
     setQty(event.target.value);
+    axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`,{
+      cart:temp
+    })
   };
+  function removeItem(){
+    
+    let tempCart = [...cart];
+    tempCart.splice(index,1);
+    setCart(tempCart);
+    axios.patch(
+      `https://sedate-laced-chestnut.glitch.me/users/${userID}`,
+      {
+        cart: tempCart,
+      }
+    );
+
+  }
+  useEffect(()=>{
+
+  },[cart])
+  
   return (
     <Box
       display={["block", "flex"]}
       p={["10px 20px", "10px 40px"]}
       justifyContent={"space-evenly"}
-      width={["90%", "60%"]}
+      width={["90%", "80%"]}
       m={["10% 0", "auto"]}
       sx={{
         "&:hover": {
@@ -31,22 +57,22 @@ export default function Cards() {
         },
       }}
     >
-      <Box width={"100px"} m={"auto"}>
+      <Box width={"200px"} m={"auto"}>
         <img
-          src="https://rukminim1.flixcart.com/image/224/224/l4n2oi80/cases-covers/back-cover/i/j/d/slide-camera-cover-heavy-duty-military-grade-protection-phone-original-imagfhsewf5kxfzq.jpeg?q=90"
+          src={data.Img}
           width={"100%"}
           alt="cover"
         />
       </Box>
       <Box padding={"0 10px"} width={["95%", "70%"]} textAlign={"left"}>
-        <p>Moshking Back Cover for POCO X4 Pro 5G, 360° Protection</p>
-        <p>Rs {(8999).toLocaleString("en-IN")}</p>
+        <p><b>{data.name}</b></p>
+        <p>{toIndianNumberingSystem(data.price)}</p>
         <FormControl sx={{ m: 1, minWidth: 80 }}>
           <InputLabel>Qty: </InputLabel>
           <Select
             labelId="demo-simple-select-autowidth-label"
             id="demo-simple-select-autowidth"
-            value={Qty}
+            value={data.qty}
             onChange={handleChange}
             autoWidth
             label="Age"
@@ -61,7 +87,9 @@ export default function Cards() {
         </FormControl>
         <Divider />
         <br />
-        <Button variant={"contained"}>
+        <Button onClick={()=>{
+          removeItem()
+        }} variant={"contained"}>
           {" "}
           <Cancel /> Remove
         </Button>

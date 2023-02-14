@@ -4,25 +4,38 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
+import toIndianNumberingSystem from "../Features/RupeeConversion";
 import Cards from "./Cards";
 
 export default function Cart() {
-  let { cart } = useContext(AuthContext);
-  let { isAuth } = useContext(AuthContext);
-  let arr = [1, 2, 3];
+  let { isAuth, cart } = useContext(AuthContext);
+  let [subTotal,setSubTotal] = useState(0)
+  let [total,setTotal] = useState(0)
+
+  useEffect(()=>{
+    cart.map((el,i)=>{
+      let Totaltemp = 0;
+    for (const items of cart) {
+      let Temp = items.qty * items.price;
+      Totaltemp += Temp;
+    }
+    setSubTotal(Totaltemp)
+    setTotal(Totaltemp+40);
+   })
+  },[cart])
   return !isAuth ? (
     <Navigate to="/login" />
   ) : (
-    <Box height={"100%"}>
+    <Box minHeight={"100vh"} p={["20px"]}>
       <Typography variant="h4" fontWeight={"700"}>Shopping Cart</Typography>
       <Box display={["block", "block", "flex"]} justifyContent={"space-around"}>
         <Box height={"auto"} width={["90%"]}>
-          {arr.map((el, i) => {
+          {cart.map((el, i) => {
             return (
-              <Cards key={i} />
+              <Cards key={i} data={el} index={i} />
             );
           })}
         </Box>
@@ -63,13 +76,13 @@ export default function Cart() {
             </Box>
             <Box>
               <Typography variant="h6" fontSize={"16px"}>
-                Rs 26,997
+                {toIndianNumberingSystem(subTotal)}
               </Typography>
               <Typography variant="h6" fontSize={"16px"}>
-                Rs +3
+                +{toIndianNumberingSystem(40)}
               </Typography>
               <Typography variant="h6" fontWeight={700}>
-                Rs 27,000
+                {toIndianNumberingSystem(total)}
               </Typography>
             </Box>
           </Box>

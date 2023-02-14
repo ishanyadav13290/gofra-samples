@@ -9,12 +9,20 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Login, Logout, Share, ShoppingBag, ShoppingCart, Wallet } from "@mui/icons-material";
+import {
+  Login,
+  Logout,
+  Share,
+  ShoppingBag,
+  ShoppingCart,
+  Wallet,
+} from "@mui/icons-material";
 import { AuthContext } from "../../Context/Contexts";
 import { NavLink } from "react-router-dom";
 
 export default function Hamburger() {
-  let { isAuth, setAuth, userName, setIsSeller, setUserID } = React.useContext(AuthContext);
+  let { isAuth, setAuth, userName, setIsSeller, setUserID } =
+    React.useContext(AuthContext);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -24,8 +32,8 @@ export default function Hamburger() {
 
   function LogOut() {
     setAuth(false);
-    setIsSeller(false)
-    setUserID("")
+    setIsSeller(false);
+    setUserID("");
   }
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -46,113 +54,104 @@ export default function Hamburger() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List m={"0"} disablePadding >
-        {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
-        <Box textAlign={"center"} p={"5px"} color={"white"} bgcolor="rgb(0, 125, 252)">{`Welcome ${userName}`}</Box>
-        
+      <List m={"0"} disablePadding>
+        <Box
+          textAlign={"center"}
+          p={"5px"}
+          color={"white"}
+          bgcolor="rgb(246, 126, 34)"
+        >{`Welcome ${userName}`}</Box>
+
         {isAuth ? (
           <>
-          <NavLink
-            to="/cart"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem disablePadding>
+            <NavLink
+              to="/cart"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ShoppingCart sx={{ color: "rgb(246, 126, 34)" }} />
+                  </ListItemIcon>
+                  <ListItemText>Cart</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            <NavLink
+              to="/previousOrders"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ShoppingBag sx={{ color: "rgb(246, 126, 34)" }} />
+                  </ListItemIcon>
+                  <ListItemText>Previous Orders</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            <NavLink
+              to="/wallet"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Wallet sx={{ color: "rgb(246, 126, 34)" }} />
+                  </ListItemIcon>
+                  <ListItemText>Wallet</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            <ListItem disablePadding onClick={LogOut}>
               <ListItemButton>
                 <ListItemIcon>
-                  <ShoppingCart />
+                  <Logout sx={{ color: "rgb(246, 126, 34)" }} />
                 </ListItemIcon>
-                <ListItemText>Cart</ListItemText>
+                <ListItemText>LogOut</ListItemText>
               </ListItemButton>
             </ListItem>
-          </NavLink>
-          <NavLink
-            to="/previousOrders"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <ShoppingBag />
-                </ListItemIcon>
-                <ListItemText>Previous Orders</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
-          <NavLink
-            to="/wallet"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Wallet />
-                </ListItemIcon>
-                <ListItemText>Wallet</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
-          <ListItem disablePadding onClick={LogOut}>
-            <ListItemButton>
-              <ListItemIcon>
-                <Logout />
-              </ListItemIcon>
-              <ListItemText>LogOut</ListItemText>
-            </ListItemButton>
-          </ListItem>
           </>
         ) : (
           <>
-          <NavLink
-            to="/login"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Login />
-                </ListItemIcon>
-                <ListItemText>Log In</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
-          <NavLink
-            to="/signup"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Login />
-                </ListItemIcon>
-                <ListItemText>Signup</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
+            <NavLink
+              to="/login"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Login sx={{ color: "rgb(246, 126, 34)" }} />
+                  </ListItemIcon>
+                  <ListItemText>Log In</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            <NavLink
+              to="/signup"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Login sx={{ color: "rgb(246, 126, 34)" }} />
+                  </ListItemIcon>
+                  <ListItemText>Signup</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
           </>
         )}
         <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Share />
-                </ListItemIcon>
-                <ListItemText>Refer</ListItemText>
-              </ListItemButton>
-            </ListItem>
-        {/* ))} */}
+          <ListItemButton>
+            <ListItemIcon>
+              <Share sx={{ color: "rgb(246, 126, 34)" }} />
+            </ListItemIcon>
+            <ListItemText>Refer</ListItemText>
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
-      {/* <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
     </Box>
   );
 
@@ -160,7 +159,7 @@ export default function Hamburger() {
     <Box display={["block", "block", "none"]}>
       <React.Fragment>
         <Button onClick={toggleDrawer("left", true)}>
-          <MenuIcon sx={{ color: "black" }} />
+          <MenuIcon sx={{ color: "rgb(246, 126, 34)" }} />
         </Button>
         <Drawer
           anchor={"left"}

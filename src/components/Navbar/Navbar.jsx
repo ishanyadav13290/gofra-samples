@@ -25,8 +25,8 @@ export default function Navbar() {
       >
         <Box width={["100%","90%"]}>
         <Box display={"flex"} alignItems={"center"} >
-        <Hamburger />
-        <NavLink to={"/"}>
+        <Hamburger  />
+        <NavLink to={"/"} style={{color:"rgb(246, 126, 34)",textDecoration:"none"}}>
           <Box display={"flex"} height={"100%"} alignItems={"center"}>
           <Typography fontWeight={700} variant="h4">
             Gofra
