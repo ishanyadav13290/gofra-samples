@@ -5,34 +5,16 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Context/Contexts";
 import toIndianNumberingSystem from "../Features/RupeeConversion";
+import  useAddToCart  from "./addToCartFunction";
 
 export default function SingleProductPage() {
   let { id } = useParams();
   let [data, setData] = useState({});
   let {userID,cart,setCart} = useContext(AuthContext)
 
-  function addToCart(newItem) {
-    if(userID==undefined) return
+  let temp= useAddToCart()
 
-    let tempCartItems = [...cart];
-    for (let i = 0; i < tempCartItems.length; i++) {
-        if (tempCartItems[i].name == newItem.name) {
-            tempCartItems[i].qty = tempCartItems[i].qty + 1;
-            setCart(tempCartItems);
-            axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
-                cart: tempCartItems
-            })
-            return
-        }
-    }
-
-    setCart([...tempCartItems, newItem]);
-    axios.patch(`https://sedate-laced-chestnut.glitch.me/users/${userID}`, {
-        cart: [...tempCartItems, newItem]
-    })
-
-
-  }
+  
   useEffect(() => {
     (async () => {
       let temp = await axios.get(
@@ -76,11 +58,7 @@ export default function SingleProductPage() {
               qty: 1,
               id: data.id,
             };
-            // setCartLength((prev) => prev + 1)
-            // setCartItems([...cartItems, data1]);
-            addToCart(
-              data1
-            );
+            temp(data1)
           }
           }
         >

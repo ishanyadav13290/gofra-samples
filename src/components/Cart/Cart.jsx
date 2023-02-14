@@ -1,6 +1,8 @@
 import { CheckOutlined } from "@mui/icons-material";
 import {
   Button,
+  Input,
+  Slider,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -11,9 +13,11 @@ import toIndianNumberingSystem from "../Features/RupeeConversion";
 import Cards from "./Cards";
 
 export default function Cart() {
-  let { isAuth, cart } = useContext(AuthContext);
+  let { isAuth, cart, walletBalance } = useContext(AuthContext);
   let [subTotal,setSubTotal] = useState(0)
   let [total,setTotal] = useState(0)
+  let [walletDiscount, setWalletDiscount] = useState(0);
+  let [useDiscount, setUseDiscount] = useState(true)
 
   useEffect(()=>{
     cart.map((el,i)=>{
@@ -23,14 +27,14 @@ export default function Cart() {
       Totaltemp += Temp;
     }
     setSubTotal(Totaltemp)
-    setTotal(Totaltemp+40);
+    setTotal(Totaltemp+40-walletDiscount);
    })
-  },[cart])
+  },[cart,total, walletDiscount, useDiscount])
   return !isAuth ? (
     <Navigate to="/login" />
   ) : (
     <Box minHeight={"100vh"} p={["20px"]}>
-      <Typography variant="h4" fontWeight={"700"}>Shopping Cart</Typography>
+      <Typography variant="h4" fontWeight={"700"}>Shopping Cart ({cart.length} Items) </Typography>
       <Box display={["block", "block", "flex"]} justifyContent={"space-around"}>
         <Box height={"auto"} width={["90%"]}>
           {cart.map((el, i) => {
@@ -44,12 +48,14 @@ export default function Cart() {
           height={"300px"}
           width={["100%", "100%", "40%"]}
           mr={["0","0","5%"]}
+          boxShadow={"rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"}
           sx={{
                   "&:hover": {
                     boxShadow:
                     "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
 ,
-                    borderRadius:"50px"
+                    borderRadius:"25px",
+                  transition:" 0.2s ease-in"
                   },
                 }}
         >
@@ -87,9 +93,17 @@ export default function Cart() {
             </Box>
           </Box>
           <br />
+          <Box width={"80%"} m={"auto"} >
+          <Box display={"flex"}>
+          <Input type="checkbox" onChange={()=>{setUseDiscount(false)}} />
+          <Typography fontWeight={700}> Pay using Wallet Balance</Typography>
+          </Box>
+          <Slider valueLabelDisplay="auto" defaultValue={0} step={100} marks min={0} max={walletBalance} disabled={useDiscount} onChange={(e)=>{
+            setWalletDiscount((prev)=>prev=e.target.value)
+          }} />
+          </Box>
           <br />
-          <br />
-          <Button variant="contained">
+          <Button sx={{ backgroundColor: "rgb(246, 126, 34)" }} variant="contained">
             <CheckOutlined />
             Checkout
           </Button>
